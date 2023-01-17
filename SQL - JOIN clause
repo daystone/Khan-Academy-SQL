@@ -1,0 +1,50 @@
+/* Create table */
+
+CREATE TABLE artists (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    age INTEGER,
+    birthplace TEXT);
+    
+/* Insert values */
+INSERT INTO artists (name, age, birthplace) VALUES ("Beyonce", 41, "Texas");
+INSERT INTO artists (name, age, birthplace) VALUES ("Chris Brown", 33, "Virginia");
+INSERT INTO artists (name, age, birthplace) VALUES ("Drake", 36, "Toronto");
+INSERT INTO artists (name, age, birthplace) VALUES ("Bad Bunny", 28, "Puerto Rico");
+INSERT INTO artists (name, age, birthplace) VALUES ("Adele", 34, "London");
+INSERT INTO artists (name, age, birthplace) VALUES ("The Weeknd", 32, "Toronto");
+
+
+/* Secondary Table */
+CREATE TABLE songs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    artist_id INTEGER,
+    title TEXT,
+    release_year INTEGER);
+
+INSERT INTO songs (artist_id, title, release_year) VALUES (1, "Single Ladies", 2008);
+INSERT INTO songs (artist_id, title, release_year) VALUES (2, "Kiss Kiss", 2007);
+INSERT INTO songs (artist_id, title, release_year) VALUES (3, "Marvin's Room", 2011);
+INSERT INTO songs (artist_id, title, release_year) VALUES (4, "Efecto", 2022);
+INSERT INTO songs (artist_id, title, release_year) VALUES (5, "Hello", 2015);
+INSERT INTO songs (artist_id, title, release_year) VALUES (2, "Under The Influence", 2019);
+INSERT INTO songs (artist_id, title, release_year) VALUES (1, "Crazy in Love", 2003);
+INSERT INTO songs (artist_id, title, release_year) VALUES (3, "One Dance", 2016);
+INSERT INTO songs (artist_id, title, release_year) VALUES (6, "Earned It", 2015);
+
+/* Arists from Toronto and their songs */
+
+SELECT artists.name, songs.title AS song_title, songs.release_year, artists.birthplace 
+FROM artists
+JOIN songs
+ON artists.id = songs.artist_id
+WHERE artists.birthplace IN ("Toronto")
+ORDER BY release_year DESC;
+
+/* Artists over 30  */
+
+SELECT artists.name, MAX(artists.age), artists.birthplace 
+FROM artists
+GROUP BY birthplace
+HAVING artists.age > 30
+ORDER BY artists.age;
