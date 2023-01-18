@@ -1,0 +1,47 @@
+CREATE TABLE employee (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    salary INTEGER,
+    department TEXT
+);
+
+INSERT INTO employee (name, salary, department) VALUES ("Hugo", 150000, "Engineering");
+INSERT INTO employee (name, salary, department) VALUES ("John", 80000, "Customer Success");
+INSERT INTO employee (name, salary, department) VALUES ("Vanessa", 50000, "Sales");
+INSERT INTO employee (name, salary, department) VALUES ("Jen", 60000, "Marketing");
+INSERT INTO employee (name, salary, department) VALUES ("Tad", 75000, "HR");
+
+CREATE TABLE bonus (
+    ref_id INTEGER,
+    bonus_amt INTEGER
+);
+
+INSERT INTO bonus (ref_id, bonus_amt) VALUES (4, 5000);
+INSERT INTO bonus (ref_id, bonus_amt) VALUES (1, 20000);
+INSERT INTO bonus (ref_id, bonus_amt) VALUES (3, 2500);
+INSERT INTO bonus (ref_id, bonus_amt) VALUES (2, 10000);
+INSERT INTO bonus (ref_id, bonus_amt) VALUES (5, 8000);
+
+/* Employee an their salary + bonus */
+
+SELECT employee.name, employee.salary, bonus.bonus_amt AS "bonus amount"
+FROM employee
+JOIN bonus
+ON employee.id = bonus.ref_id
+ORDER BY salary DESC;
+
+/* Update bonus amount */
+
+UPDATE bonus SET bonus_amt = 25000 WHERE ref_id = 1;
+
+SELECT employee.name, bonus.bonus_amt AS "bonus amount"
+FROM employee
+JOIN bonus
+ON employee.id = bonus.ref_id
+ORDER BY bonus_amt DESC;
+
+/* DELETE HR row */
+
+DELETE FROM employee WHERE id = 5;
+
+SELECT * FROM employee;
